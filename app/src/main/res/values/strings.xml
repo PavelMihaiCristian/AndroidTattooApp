@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">TattooShopApp</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="settings">Settings</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="account">Account</string>
+    <string name="chat">Chat</string>
+    <string name="appointments">Appointments</string>
+    <string name="gallery">Gallery</string>
+    <string name="amelia_tattoo">Amelia Tattoo</string>
+    <string name="send">Send</string>
+</resources>
