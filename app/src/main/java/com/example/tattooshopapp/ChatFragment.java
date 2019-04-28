@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -15,8 +13,6 @@ import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,13 +36,10 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 
-public class ChatActivity extends Fragment {
-
-    private static final String TAG = "ChatActivity";
+public class ChatFragment extends Fragment {
 
     public static final String ANONYMOUS = "anonymous";
     public static final int DEFAULT_MSG_LENGTH_LIMIT = 1000;
-    public static final int RC_SIGN_IN = 1;
     private static final int RC_PHOTO_PICKER = 2;
 
     private RecyclerView recyclerView;
@@ -67,14 +59,13 @@ public class ChatActivity extends Fragment {
     private ValueEventListener valueEventListener;
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
 
     private ArrayList<Message> messageArrayList = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.chat_activity,null);
+        return inflater.inflate(R.layout.chat_fragment, null);
     }
 
     @Override
@@ -102,7 +93,7 @@ public class ChatActivity extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser != null){
+        if (currentUser != null) {
             mUsername = currentUser.getDisplayName();
             onSignedIn(mUsername);
         } else {
@@ -182,7 +173,7 @@ public class ChatActivity extends Fragment {
                     Message message = dataSnapshot.getValue(Message.class);
                     messageArrayList.add(message);
                     adapter.notifyDataSetChanged();
-                    recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
+                    recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
                 }
 
                 @Override
@@ -221,6 +212,31 @@ public class ChatActivity extends Fragment {
                 }
             };
             messagesReference.addValueEventListener(valueEventListener);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //check to see if the request code comes from the login flow we created
+
+        if (requestCode == RC_PHOTO_PICKER){
+            Uri uriPhoto = data.getData();
+            //get the storage referense to photos/fileName
+            StorageReference photeRef = storageReference.child(uriPhoto.getLastPathSegment());
+            //upload file to firebase storage
+            photeRef.putFile(uriPhoto).addOnSuccessListener(getActivity(), new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Message message = new Message(null, mUsername,uri.toString());
+                            messagesReference.push().setValue(message);
+                        }
+                    });
+                }
+            });
         }
     }
 }

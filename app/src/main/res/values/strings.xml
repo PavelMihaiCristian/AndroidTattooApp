@@ -14,4 +14,7 @@
     <string name="gallery">Gallery</string>
     <string name="amelia_tattoo">Amelia Tattoo</string>
     <string name="send">Send</string>
+    <string name="upload">Upload</string>
+    <string name="insert_city_name">Insert city name</string>
+    <string name="forecasts">Forecasts</string>
 </resources>
