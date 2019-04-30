@@ -29,7 +29,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class ForecastFragment extends Fragment {
 
@@ -53,7 +52,7 @@ public class ForecastFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.forecast_fragment,null);
+        return inflater.inflate(R.layout.forecast_fragment, null);
     }
 
     @Override
@@ -84,7 +83,7 @@ public class ForecastFragment extends Fragment {
                 String cityName = searchCriteria.getText().toString().trim();
                 location = cityName;
                 GetWeatherAsync getWeatherAsync = new GetWeatherAsync();
-                if (cityName.length() == 0){
+                if (cityName.length() == 0) {
                     getWeatherAsync.execute(REQUEST_URL);
                 } else {
                     StringBuilder stringBuilder = new StringBuilder("http://api.openweathermap.org/data/2.5/find?q=");
@@ -183,10 +182,10 @@ public class ForecastFragment extends Fragment {
 
                 mainConditionText.setText("Overall weather condition: " + overallState);
                 temperatureText.setText("Temperature: " + temp);
-                presureText.setText("Air Preassure: " + pressure);
+                presureText.setText("Air Pressure: " + pressure);
                 humidityText.setText("Air Humidity: " + humidity);
 
-                ForecastItem forecastItem = new ForecastItem(overallState,location,Double.valueOf(temp),Double.valueOf(pressure),Double.valueOf(humidity));
+                ForecastItem forecastItem = new ForecastItem(overallState, location, Double.valueOf(temp), Double.valueOf(pressure), Double.valueOf(humidity));
                 forecastsDAO.insertForecast(forecastItem);
 
             } catch (JSONException e) {

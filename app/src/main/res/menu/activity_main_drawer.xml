@@ -24,6 +24,11 @@
             android:id="@+id/forecastWeather"
             android:icon="@drawable/sunny"
             android:title="@string/forecasts" />
+        <item
+            android:id="@+id/initialScreen"
+            android:visible="false"
+            android:icon="@drawable/sunny"
+            android:title="@string/forecasts" />
     </group>
 
 </menu>

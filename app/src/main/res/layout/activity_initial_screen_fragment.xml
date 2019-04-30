@@ -7,9 +7,11 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome to my page where you can review some of my work, create an account, make a booking or contact me for more information."
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/welcome_message"
+        android:padding="16dp"
         android:textAllCaps="true"
-        android:textSize="24pt"
-        android:textColor="#00EAF0F0"/>
+        android:textColor="#CC0000"
+        android:visibility="visible" />
 </LinearLayout>

@@ -17,4 +17,5 @@
     <string name="upload">Upload</string>
     <string name="insert_city_name">Insert city name</string>
     <string name="forecasts">Forecasts</string>
+    <string name="welcome_message">Welcome to my app. You can review some of my work, create an account, make a booking and contact me in the chat room for more information.</string>
 </resources>

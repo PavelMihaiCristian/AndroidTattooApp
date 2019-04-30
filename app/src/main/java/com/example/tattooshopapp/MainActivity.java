@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         };
+        displayScreen(R.id.initialScreen);
     }
 
     private void onSignedIn(String displayName) {
@@ -190,6 +191,11 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        displayScreen(id);
+        return true;
+    }
+
+    private void displayScreen(int id) {
         Fragment fragment = null;
         if (id == R.id.nav_camera) {
             fragment = new AdminGalleryUploadFragment();
@@ -201,6 +207,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.forecastWeather) {
             fragment = new ForecastFragment();
+        } else if (id == R.id.initialScreen) {
+            fragment = new InitialScreenFragment();
         }
 
         if (fragment != null) {
@@ -214,8 +222,5 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
-
-
 }

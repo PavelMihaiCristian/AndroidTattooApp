@@ -160,7 +160,6 @@ public class ChatFragment extends Fragment {
 
     private void onSignedIn(String displayName) {
         mUsername = displayName;
-        Toast.makeText(getActivity(), "You are now Signed in. Welcome back " + mUsername, Toast.LENGTH_LONG).show();
         //user needs to be authenticated so it can have permission to read from the database
         createAndAttachDatabaseListener();
     }
@@ -173,7 +172,7 @@ public class ChatFragment extends Fragment {
                     Message message = dataSnapshot.getValue(Message.class);
                     messageArrayList.add(message);
                     adapter.notifyDataSetChanged();
-                    recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
+                    recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount()-1);
                 }
 
                 @Override

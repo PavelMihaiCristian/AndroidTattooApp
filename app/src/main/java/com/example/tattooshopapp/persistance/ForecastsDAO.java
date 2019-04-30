@@ -52,7 +52,7 @@ public class ForecastsDAO {
 
         Cursor cursor = readDatabase.query(
                 ForecastEntry.TABLE_NAME,   // The table to query
-                projection,             // The array of columns to return (pass null to get all)
+                null,             // The array of columns to return (pass null to get all)
                 null,              // The columns for the WHERE clause
                 null,          // The values for the WHERE clause
                 null,                   // don't group the rows
